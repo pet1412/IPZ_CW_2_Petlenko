@@ -46,6 +46,7 @@ fun Greeting() {
     var currentState by remember{ mutableStateOf(1) }
     var emailValue by remember { mutableStateOf("") }
     var passwordValue by remember { mutableStateOf("") }
+    var emailTextValue by remember { mutableStateOf("") }
 
 
     when(currentState)  {
@@ -77,6 +78,9 @@ fun Greeting() {
             Button(
                 onClick = {
                     if ( (emailValue != "") && passwordValue != ""){
+                        emailTextValue = emailValue
+                        emailValue = ""
+                        passwordValue = ""
                         currentState = 2
                     }
                 }) {
@@ -92,7 +96,7 @@ fun Greeting() {
                 "Sing In Success",
                 fontSize = 30.sp
             )
-            Text(text = emailValue)
+            Text(text = emailTextValue)
             Button(onClick = { currentState = 1 }) {
                 Text(
                     text = "Sing out",
