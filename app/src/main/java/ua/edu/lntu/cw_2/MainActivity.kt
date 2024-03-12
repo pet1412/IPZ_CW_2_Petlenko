@@ -1,7 +1,6 @@
 package ua.edu.lntu.cw_2
 
 import android.os.Bundle
-import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.edu.lntu.cw_2.ui.theme.IPZ_CW_2_PetlenkoTheme
@@ -46,78 +44,62 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting() {
     var currentState by remember{ mutableStateOf(1) }
-    when(currentState)  {
-        1 -> SingIn()
-        2 -> SingInSuccess(email = "")
-    }
-
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    IPZ_CW_2_PetlenkoTheme {
-        Greeting()
-    }
-}
-
-@Composable
-fun SingIn(){
     var emailValue by remember { mutableStateOf("") }
     var passwordValue by remember { mutableStateOf("") }
 
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Login",
-            fontSize = 30.sp
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-        TextField(
-            value = emailValue,
-            label = {
-                    Text(text = "Email")
-            },
-            onValueChange = { newText -> emailValue = newText }
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-        TextField(
-            value = passwordValue,
-            label = {
-                Text(text = "Password")
-            },
-            onValueChange = { newText -> passwordValue = newText }
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-        Button(
-            onClick = {
-                if ( (emailValue != "") && passwordValue != ""){
-                    currentState = 2
-                }
-            }) {
-            Text(text = "Sign In")
-        }
-    }
-}
 
-@Composable
-fun SingInSuccess(email: String){
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            "Sing In Success",
-            fontSize = 30.sp
-        )
-        Text(text = email)
-        Button(onClick = { currentState = 1 }) {
+    when(currentState)  {
+        1 ->  Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "Login",
+                fontSize = 30.sp
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            TextField(
+                value = emailValue,
+                label = {
+                    Text(text = "Email")
+                },
+                onValueChange = { newText -> emailValue = newText }
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            TextField(
+                value = passwordValue,
+                label = {
+                    Text(text = "Password")
+                },
+                onValueChange = { newText -> passwordValue = newText }
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            Button(
+                onClick = {
+                    if ( (emailValue != "") && passwordValue != ""){
+                        currentState = 2
+                    }
+                }) {
+                Text(text = "Sign In")
+            }
+        }
+        2 ->
+            Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                "Sing In Success",
+                fontSize = 30.sp
+            )
+            Text(text = emailValue)
+            Button(onClick = { currentState = 1 }) {
                 Text(
                     text = "Sing out",
                     fontSize = 20.sp
                 )
+            }
         }
     }
+
 }
