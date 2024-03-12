@@ -15,6 +15,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,7 +44,12 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting() {
-    SingInSuccess("fsdfsdf")
+    var currentState by remember{ mutableStateOf(2) }
+
+    when(currentState)  {
+        1 -> SingIn()
+        2 -> SingInSuccess(email = "")
+    }
 }
 
 @Preview(showBackground = true)
@@ -53,6 +62,8 @@ fun GreetingPreview() {
 
 @Composable
 fun SingIn(){
+    var emailValue by remember { mutableStateOf("") }
+    var passworValue by remember { mutableStateOf("") }
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -60,9 +71,15 @@ fun SingIn(){
     ) {
         Text(text = "Login")
         Spacer(modifier = Modifier.height(12.dp))
-        TextField(value = "Email", onValueChange = {} )
+        TextField(
+            value = emailValue,
+            onValueChange = { newText -> emailValue = newText }
+        )
         Spacer(modifier = Modifier.height(12.dp))
-        TextField(value = "Password", onValueChange = {} )
+        TextField(
+            value = passworValue,
+            onValueChange = { newText -> passworValue = newText }
+        )
         Spacer(modifier = Modifier.height(12.dp))
         Button(
             onClick = { /*TODO*/ }) {
